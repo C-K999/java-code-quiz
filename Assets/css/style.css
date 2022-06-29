@@ -1,36 +1,28 @@
+* {
+    box-sizing: border-box;
+  }
+  
+main {
+    margin: auto;
+}
+
 body{
     font-family: 'Georgia', 'Times New Roman', 'Times', 'serif';
 }
 
-aside{
-    display:inline-block;
-    margin:2%;
-    
-}
-
-.static{
-    text-align: left;
+#hsLink {
     color: purple;
+    background-color: white;
+    border: none;
+    font-size: 16px;
 }
 
-.static:hover{
-    color:blue;
-}
-
-.countdown{
+#countdown{
     float: right;
 }
 
-header {
-    display: absolute;
-    padding: 5%;
+#title, h1, h2{
     text-align: center;
-}
-
-li{
-    list-style-type: none;    
-    text-align: left;
-    margin:20px;
 }
 
 button{
@@ -38,4 +30,22 @@ button{
     border-radius: 8px;
     border-color: violet;
     color: white;
+    padding:2px;
+    margin: 2px;
+}
+
+.quizModule {
+    position: relative;
+    text-align: left;
+    margin:2px;
+}
+
+#highscoreList {
+    background-color:violet;
+    font-size: 20px;
+    padding:2px;
+}
+
+#incorrect{
+    color: gray;
 }

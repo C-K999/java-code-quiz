@@ -4,18 +4,18 @@
 <head>
   <meta charset="UTF-8">
   <title>Java Code Quiz</title>
-  <link rel="stylesheet" type="text/css" href="./assets/css/reset.css">
-  <link rel="stylesheet" type="text/css" href="./assets/css/style.css">
+  <link rel="stylesheet" type="text/css" href="./Assets/css/reset.css">
+  <link rel="stylesheet" type="text/css" href="./Assets/css/style.css">
 </head>
 
 <body>
   <nav>
-      <button type="button" id="highScoresBtn">View Highscores</button>
-      <div id="timerDisplay">Timer: <span id="timerValue">75</span></div>
+      <button type="button" id="hsLink">View Highscores</button>
+      <div id="countdown">Timer: <span id="timerCount">60</span></div>
   </nav>
 
   <main>
-      <section id="welcome">
+      <section id="title">
           <h1>Coding Quiz Challenge</h1>
           <p>Try to answer the following code-related questions within the time limit.<br> 
           Keep in mind that incorrect answers will penalize your score/time by ten seconds!</p>
@@ -87,18 +87,18 @@
       <section id="incorrect" hidden>
           <br>
           <hr>
-          <h3>Incorrect!</h3>
+          <h3>Wrong!</h3>
       </section>
 
       <section id="highscores" hidden>
           <h1>Highscores</h1>
           <ol type="1" id="highscoreList">
           </ol>
-          <button type="button" id="goBackBtn">Go Back</button>
+          <button type="button" id="BB">Go Back</button>
           <button type="reset" id="clearScores">Clear Highscores</button>
       </section>
   </main>
 
-  <script src="./script.js"></script>
+  <script src="./Assets/script.js"></script>
 </body>
 </html>

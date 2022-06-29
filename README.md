@@ -1,15 +1,16 @@
-# Web API: [JavaScript Code Quiz](https://c-k999.github.io/password-generator/)
+# Web API: [JavaScript Code Quiz](https://c-k999.github.io/java-code-quiz//)
 
+The following is a HTML based code quiz tasting the user on their knowledge of the Java language, made using Java.
 
 ## Tools Used
 
-```
-
-code
+The following code snippet is a recurring code used to hide the DOM elements from the user, to make then think the elements are being changed when all the questions and answer buttons have been on the same webpage all along. Depending on their need, the passages will be visible as needed.
 
 ```
-
-
+for (var i=0; i < sections.length; i++) {
+        sections[i].hidden = true;
+    }
+```
 
 ## Mock-Up
 

@@ -1,136 +1,175 @@
-//DOM traversing
-var body = document.body;
+// Adding event listeners
+document.getElementById("hsLink").addEventListener("click", displayHighScores);
+document.getElementById("BB").addEventListener("click", goBack);
+document.getElementById("clearScores").addEventListener("click", resetHS);
+document.getElementById("quizStart").addEventListener("click", startQuiz);
+document.getElementById("initialsBtn").addEventListener("click", saveName);
 
-var hsLink = document.createElement("aside");
-hsLink.textContent = "View high scores";
-hsLink.setAttribute("class","static");
-body.appendChild(hsLink);
+const recordhighScores = "QuizList";
+const lastModule = 6;
 
-var timer = document.createElement("aside");
-var timerCount = 60;
-timer.textContent = "Time: " + timerCount;
-timer.setAttribute("class", "countdown");
-body.appendChild(timer);
+var timerCountdown = 60;
+var highScores = [];
+var interval;
 
-//Setting up the "title screen" for the quiz
-var headElement = document.createElement("header");
-body.appendChild(headElement);
+// Onclick event for "View Highscores" button on navigation bar
+function displayHighScores() {
 
-var h2El = document.createElement("h2");
-h2El.textContent = "Coding Quiz Challenge"
-headElement.appendChild(h2El);
+    clearInterval(interval);
+    resetHSList();
 
-var h3El = document.createElement("h3");
-h3El.textContent = "Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score/time by ten seconds!"
-headElement.appendChild(h3El);
+    var highscoresSection = document.getElementById("highscores");
+    var highscoresList = document.getElementById("highscoreList");
 
-// The list of questions, answer choice, and the correct one among them.
-var booleanQ = {
-    question: "Commonly used data types DO NOT include:",
-    answers: ["1. strings","2. booleans","3. alerts","4. numbers"],
-    correctAns: 2,
-};
+    for (var i=0; i < highScores.length; i++) {
+        var newListItem = document.createElement("li");
+        newListItem.textContent = highScores[i];
+        highscoresList.appendChild(newListItem);
+    }
 
-var ifelseQ = {
-    question:"The condition in an if/else statememt is enclosed with ______",
-    answers:["1. quotes","2. curly brackets","3. parenthesis","4. square brackets"],
-    correctAns: 2,
+    var sections = document.getElementsByTagName("section");
+
+    for (var i=0; i < sections.length; i++) {
+        sections[i].hidden = true;
+    }
+
+    document.querySelector("nav").hidden = true;
+    highscoresSection.hidden = false;
 }
 
-var javarrayQ = {
-    question: "Arrays in JavaScript can be used to store ________",
-    answers:["1. numbers and strings","2. other arrays","3. booleans","4. all of the above"],
-    correctAns: 3,
+// Onclick event for "Go Back" button on Highscores section
+function goBack() {
+    timerCountdown = 60;
+    document.getElementById("timerCount").textContent = timerCountdown.toString();
+
+    var sections = document.getElementsByTagName("section");
+
+    for (var i=0; i < sections.length; i++) {
+        sections[i].hidden = true;
+    }
+
+    document.querySelector("nav").hidden = false;
+    document.getElementById("title").hidden = false;
 }
 
-var stringQ = {
-    question: "String values must be enclosed within ______ when being assigned to variables.",
-    answers: ["1. commas", "2. curly brackets", "3. quotes", "4. parenthesis"],
-    correctAns: 2,
+// "Start Quiz" event from the title page
+function startQuiz() {
+    var sections = document.getElementsByTagName("section");
+
+    for (var i=0; i < sections.length; i++) {
+        sections[i].hidden = true;
+    }
+    document.getElementById("module1").hidden = false;
+    timerCountdown = 61;
+    clearInterval(interval); 
+    interval = setInterval(seTimer, 1000);
 }
 
-var debugQ = {
-    question: "A very useful tool used during development and debugging for printing content to the debugger is:",
-    answers: ["1. JavaScript","2. terminal/bash", "3. for loops", "4. console.log"],
-    correctAns: 3,
+function seTimer() {
+    if (timerCountdown <= 0) {
+        gotoQ(lastModule);
+        alert("Time's up!");
+    }
+    else {
+        timerCountdown--; // decrement timer
+        document.getElementById("timerCount").textContent = timerCountdown.toString();
+    }
 }
 
-var stateQ = {
-    question: "What is the symbol you use to finish a statement with in JavaScript?",
-    answers: ["1. ;", "2. :","3. )","4. ,"],
-    correctAns: 0,
+// Onclick event for all answer buttons
+function answerButtons(event) {
+    var currentQ = event.target.parentElement.getAttribute("name");
+    var nextQ = parseInt(currentQ) + 1;
+    var correctAnswer = event.target.parentElement.getAttribute("value");
+    var inputAnswer = event.target.value;
+
+    if (timerCountdown <= 0) {
+        nextQ = lastModule;
+    }
+
+    gotoQ(nextQ);
+
+    // To check if the answers are correct
+    if (inputAnswer === correctAnswer) {
+        document.getElementById("correct").hidden = false;
+    }else {
+        document.getElementById("incorrect").hidden = false;
+        timerCountdown = timerCountdown - 10;
+    }
 }
 
-// Loading the questions
-var questionList = [booleanQ, ifelseQ, javarrayQ, stringQ, debugQ, stateQ];
-console.log("Questions loaded.");
-
-//For starting the quiz
-var startButton = document.createElement("button");
-startButton.textContent = "Start Quiz";
-startButton.setAttribute("class","interactables");
-headElement.append(startButton);
-
-startButton.addEventListener("click",gameStart);
-
-
-
-function gameStart() {
-
-    h2El.remove();
-    h3El.remove();
-    startButton.remove();
+function gotoQ(nextQ) {
     
-    quizMechanics(questionList.length);
+    if (nextQ === lastModule) {
+        clearInterval(interval);
+        document.getElementById("finalScore").textContent = timerCountdown.toString();
+    }
 
-    var timerInterval = setInterval(function() {
-        timerCount--;
-        timer.textContent = "Time: " + timerCount;
-    
-        if(timerCount <= 0) {
-          clearInterval(timerInterval);
-          quizEnd();
+    var sections = document.getElementsByTagName("section");
+
+    for (var i=0; i < sections.length; i++) {
+        sections[i].hidden = true;
+    }
+
+    document.getElementsByName(nextQ.toString())[0].hidden = false;
+}
+
+// Onclick event for "Submit" button on Complete section
+function saveName() {
+    var initialsInput = document.getElementById("initials");
+    var score = 0;
+    var newIndex = 0; 
+
+    for (newIndex=0; newIndex < highScores.length; newIndex++) {
+        score = parseInt(highScores[newIndex].substr(-2));
+        if (timerCountdown > score) {
+            break;
         }
-  
-      }, 1000);
-
-}
-
-function quizMechanics(QsCheck){
-
-    var currentSet = questionList[questionList.length-QsCheck];
-    var correctAnswer = currentSet.answers[currentSet.correctAns];
-    
-
-
-    if(timerCount <=0){
-        timerCount=0;
-        quizEnd();
     }
 
-    if(page=questionList.length+1){
-        quizEnd();
+    highScores.splice(newIndex, 0, initialsInput.value + " - " + timerCountdown.toString()); 
+    initialsInput.value = ""; 
+    setHighScores(); 
+    displayHighScores(); 
+}
+
+// Adds button functionality the answers
+setAnswer();
+
+function setAnswer() {
+    var answerOps = document.getElementsByClassName("answerOp")
+    for (var i = 0; i < answerOps.length; i++) {
+        answerOps[i].addEventListener("click", answerButtons);
     }
-
-    quizMechanics(QsCheck-1);
-
 }
 
-//And ending the quiz
-function quizEnd(){
-    h2El.style.visibility = 'visible';
-    h3El.style.visibility = 'visible';
-    //alert("Page will refresh.");
-    console.log("Time to refresh.");
-    //location.reload();
+// For the "Check Highscores" link
+function resetHS() {
+    resetHSList();
+    highScores = [];
+    setHighScores();
 }
 
-// Generates random numbers
-function randomNo(x,y){
-    var min = x;
-    var max = y;
-    
-    var randomNo = Math.floor(Math.random()*(max-min+1)+min);
-    
-    return randomNo;
+// Retrieves and stores highscore list from local storage
+retrieveHS();
+
+function retrieveHS() {
+    var hsList = JSON.parse(localStorage.getItem(recordhighScores));
+
+    if (hsList) {
+        highScores = hsList;
+    }
+}
+
+function setHighScores() {
+    localStorage.setItem(recordhighScores, JSON.stringify(highScores));
+}
+
+// For clearing the highscore list
+function resetHSList() {
+    var highscoresList = document.getElementById("highscoreList");
+
+    while (highscoresList.childNodes.length > 0) {
+        highscoresList.removeChild(highscoresList.childNodes[0]);
+    }
 }
