@@ -71,9 +71,9 @@ startButton.textContent = "Start Quiz";
 startButton.setAttribute("class","interactables");
 headElement.append(startButton);
 
-startButton.addEventListener("click",function(){
-    gameStart();
-});
+startButton.addEventListener("click",gameStart);
+
+
 
 function gameStart() {
 
@@ -81,9 +81,7 @@ function gameStart() {
     h3El.remove();
     startButton.remove();
     
-    for(i=0;i<5;i++){
-        quizMechanics();
-    }
+    quizMechanics(questionList.length);
 
     var timerInterval = setInterval(function() {
         timerCount--;
@@ -98,43 +96,23 @@ function gameStart() {
 
 }
 
-function quizMechanics(){
+function quizMechanics(QsCheck){
 
-    var currentSet = questionList[randomNo(0,(questionList.length-1))];
+    var currentSet = questionList[questionList.length-QsCheck];
+    var correctAnswer = currentSet.answers[currentSet.correctAns];
+    
 
-    var currentQ = document.createElement("h2");
-    currentQ.textContent = currentSet.question;
-    headElement.appendChild(currentQ);
 
-    var li = document.createElement("li");
-    headElement.append(li);
-    var currentA1 = document.createElement("button");
-    currentA1.textContent=currentSet.answers[0];
-    li.appendChild(currentA1);
-    currentA1.addEventListener("click", checkifTrue(currentA1.textContent,currentSet.correctAns));
+    if(timerCount <=0){
+        timerCount=0;
+        quizEnd();
+    }
 
-    var li2 = document.createElement("li");
-    headElement.append(li2);
-    var currentA2 = document.createElement("button");
-    currentA2.textContent=currentSet.answers[1];
-    li2.appendChild(currentA2);
-    currentA2.addEventListener("click",checkifTrue(currentA2.textContent,currentSet.correctAns));
+    if(page=questionList.length+1){
+        quizEnd();
+    }
 
-    var li3 = document.createElement("li");
-    headElement.append(li3);
-    var currentA3 = document.createElement("button");
-    currentA3.textContent=currentSet.answers[2];
-    li3.appendChild(currentA3);
-    currentA3.addEventListener("click",checkifTrue(currentA3.textContent,currentSet.correctAns));
-
-    var li4 = document.createElement("li");
-    headElement.append(li4);
-    var currentA4 = document.createElement("button");
-    currentA4.textContent=currentSet.answers[3];
-    li4.appendChild(currentA4);
-    currentA4.addEventListener("click",checkifTrue(currentA4.textContent,currentSet.correctAns));
-
-    console.log("Correct answer is: "+currentSet.correctAns);
+    quizMechanics(QsCheck-1);
 
 }
 
@@ -155,8 +133,4 @@ function randomNo(x,y){
     var randomNo = Math.floor(Math.random()*(max-min+1)+min);
     
     return randomNo;
-}
-
-function checkifTrue(x,y){
-    console.log(x+" has been selected.");
 }
