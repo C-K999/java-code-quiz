@@ -27,7 +27,13 @@ header {
     text-align: center;
 }
 
-.interactables{
+li{
+    list-style-type: none;    
+    text-align: left;
+    margin:20px;
+}
+
+button{
     background-color: purple;
     border-color: violet;
     color: white;
