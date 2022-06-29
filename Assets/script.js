@@ -45,12 +45,20 @@ var javarrayQ = {
 }
 
 //For starting the quiz
-var startButton = document.querySelector("#start-button");
+var startButton = document.createElement("button");
+startButton.textContent = "Start Quiz";
+startButton.setAttribute("style","background-color:purple, color:white");
+headElement.appendChild(startButton);
+
+startButton.addEventListener("click",function(){
+    gameStart();
+});
 
 function gameStart() {
 
     h2El.style.visibility = 'hidden';
     h3El.style.visibility = 'hidden';
+    startButton.style.visibility = 'hidden';
 
     var timerInterval = setInterval(function() {
       timerCount--;
@@ -63,8 +71,6 @@ function gameStart() {
 
     }, 1000);
 }
-
-startButton.addEventListener("click",gameStart());
 
 //And ending the quiz
 function quizEnd(){
