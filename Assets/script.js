@@ -24,31 +24,11 @@ var h3El = document.createElement("h3");
 h3El.textContent = "Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score/time by ten seconds!"
 headElement.appendChild(h3El);
 
-
-// The list of questions, answer choice, and the correct one among them.
-var booleanQ = {
-    question: "Commonly used data types DO NOT include:",
-    answers: ["1. strings","2. booleans","3. alerts","4. numbers"],
-    correctAns: 2,
-};
-
-var ifelseQ = {
-    question:"The condition in an if/else statemetn is enclosed with ______",
-    answers:["1. quotes","2. curly brackets","3. parenthesis","4. square brackets"],
-    correctAns: 2,
-}
-
-var javarrayQ = {
-    question: "Arrays in JavaScript can be used to store ________",
-    answers:["numbers and strings","other arrays","booleans","all of the above"],
-    correctAns: 3,
-}
-
 //For starting the quiz
 var startButton = document.createElement("button");
 startButton.textContent = "Start Quiz";
-startButton.setAttribute("style","background-color:purple, color:white");
-headElement.appendChild(startButton);
+startButton.setAttribute("class","interactables");
+headElement.append(startButton);
 
 startButton.addEventListener("click",function(){
     gameStart();
@@ -79,4 +59,41 @@ function quizEnd(){
     alert("Page will refresh.");
     console.log("Page will refresh.");
     location.reload();
+}
+
+// The list of questions, answer choice, and the correct one among them.
+var booleanQ = {
+    question: "Commonly used data types DO NOT include:",
+    answers: ["1. strings","2. booleans","3. alerts","4. numbers"],
+    correctAns: 2,
+};
+
+var ifelseQ = {
+    question:"The condition in an if/else statemetn is enclosed with ______",
+    answers:["1. quotes","2. curly brackets","3. parenthesis","4. square brackets"],
+    correctAns: 2,
+}
+
+var javarrayQ = {
+    question: "Arrays in JavaScript can be used to store ________",
+    answers:["1. numbers and strings","2. other arrays","3. booleans","4. all of the above"],
+    correctAns: 3,
+}
+
+var stringQ = {
+    question: "String values must be enclosed within ______ when being assigned to variables.",
+    answers: ["1. commas", "2. curly brackets", "3. quotes", "4. parenthesis"],
+    correctAns: 2,
+}
+
+var debugQ = {
+    question: "A very useful tool used during development and debugging for printing content to the debugger is:",
+    answers: ["1. JavaScript","2. terminal/bash", "3. for loops", "4. console.log"],
+    correctAns: 3,
+}
+
+var stateQ = {
+    question: "What is the symbol you use to finish a statement with in JavaScript?",
+    answers: ["1. ;", "2. :","3. )","4. ,"],
+    correctAns: 0,
 }

@@ -25,4 +25,10 @@ header {
     display: absolute;
     padding: 5%;
     text-align: center;
-  }
+}
+
+.interactables{
+    background-color: purple;
+    border-color: violet;
+    color: white;
+}
