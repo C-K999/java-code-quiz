@@ -1,0 +1,28 @@
+body{
+    font-family: 'Georgia', 'Times New Roman', 'Times', 'serif';
+}
+
+aside{
+    display:inline-block;
+    margin:2%;
+    
+}
+
+.static{
+    text-align: left;
+    color: purple;
+}
+
+.static:hover{
+    color:blue;
+}
+
+.countdown{
+    float: right;
+}
+
+header {
+    display: absolute;
+    padding: 5%;
+    text-align: center;
+  }
